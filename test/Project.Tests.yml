@@ -1,0 +1,47 @@
+modelVersion: 1.0
+projects:
+  - project: 
+      name: TestCore
+      features:
+          repos: true
+          boards: true
+          testplans: false
+          pipelines: true
+          artifacts: true
+      boards:
+          processTemplate: Basic
+      git:
+        repos:
+        - repo: core            
+          settings: 
+            defaultBranch: master
+            initOnCreation: true # /false - if true default branch is created using readme and populated          
+            branchPolicies:
+            - master:
+                minimumNumberOfReviewers: 
+                  allowDownVotes: false
+                  blocking: true
+                  creatorVoteCounts: false
+                  minimumApproverCount: 2
+                  resetOnSourcePush: true
+                checkForLinkedWorkItems: Required # None/Optional
+                checkForCommentResolution: Required # None/Optional
+                allowedMergeTypes:
+                   basicNoFastForward: true
+                   allowSquashMerge: true
+                   rebaseAndFastForward: true
+                   rebaseWithMergeCommit: true 
+            - develop:
+                minimumNumberOfReviewers: 
+                  allowDownVotes: false
+                  blocking: true
+                  creatorVoteCounts: false
+                  minimumApproverCount: 1
+                  resetOnSourcePush: false
+                checkForLinkedWorkItems: Required # None/Optional
+                checkForCommentResolution: Required # None/Optional
+                allowedMergeTypes:
+                   basicNoFastForward: true
+                   allowSquashMerge: true
+                   rebaseAndFastForward: true
+                   rebaseWithMergeCommit: false

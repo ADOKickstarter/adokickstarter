@@ -1,0 +1,163 @@
+modelVersion: 1.0
+organization: 
+   name: https://dev.azure.com/expert-thinking-wag
+   settings: 
+
+
+projects:
+  - project: 
+      name: Banana
+      features:
+          repos: false
+          boards: false
+          testplans: false
+          pipelines: true
+          artifacts: true     
+      
+      teams:
+      - team: Core      
+        properties:
+          #administrator: james.denning@expert-thinking.co.uk # or use domain\userid         
+          # backlogIteration: <Root>   
+          # rootPlanningIteration:        
+          # areas: 
+          #   - <Root>         
+      - team: ProductTeam1      
+        properties:
+         # administrator: james.denning@expert-thinking.co.uk  # or use domain\userid - TODO: No documented or easy to understand API to make some a team admin
+          # backlogIteration: Product Development\Phase 1
+          # areas: 
+          #   - Logistics\Product1*
+          #   - Area51\Stealth Aircraft 
+      environments:
+        - name: devb
+          description: This is Dev B
+          permissions:
+            - identity: ProductTeam1 #Group or Team name
+              permissionSet: EnvironmentUser
+        - name: uata
+          description: This is UATA
+          permissions:
+            - identity: Core
+              permissionSet: EnvironmentAdmin
+      groups:
+        - name: RestrictedGroup1                  
+          team: ProductTeam1
+          defaultPermissions: Restricted  # None/Restricted/Project
+          # repos:
+          #   - name: core
+          #     permissionSet: GitRestricted
+          #   - name: Product1ComponentA
+          #     permissionSet: GitContributor
+          environments:
+            - name: dev
+              description: This is the dev env
+              permissionSet: EnvironmentUser
+            - name: uat
+              description: User Acceptance Testing
+              permissionSet: EnvironmentUser
+        - name: CoreTeam1                  
+          team: ProductTeam1
+          defaultPermissions: Project  # None/Restricted/Project
+          # repos:
+          #   - name: core
+          #     permissionSet: GitContributor
+          #   - name: Product1ComponentA
+          #     permissionSet: GitContributor
+          environments:
+            - name: dev
+              description: This is the dev env
+              permissionSet: EnvironmentAdmin
+
+permissionSets:
+- permissionSet: GitContributor
+  applyAsDefault: Project
+  namespace: Git Repositories
+  allowActions: 
+    - GenericRead
+    - GenericContribute
+    - CreateBranch
+    - CreateTag
+    - ManageNote
+    - PullRequestContribute
+- permissionSet: GitReadOnly
+  namespace: Git Repositories
+  allowActions: 
+    - GenericRead
+  denyActions:
+    - Administer
+    - GenericRead
+    - GenericContribute
+    - ForcePush
+    - CreateBranch
+    - CreateTag
+    - ManageNote
+    - PolicyExempt
+    - CreateRepository
+    - DeleteRepository
+    - RenameRepository
+    - EditPolicies
+    - RemoveOthersLocks
+    - ManagePermissions
+    - PullRequestContribute
+    - PullRequestBypassPolicy
+- permissionSet: GitDeny
+  applyAsDefault: Restricted
+  namespace: Git Repositories
+  allowActions: 
+    - GenericRead
+  denyActions:
+    - Administer
+    - GenericRead
+    - GenericContribute
+    - ForcePush
+    - CreateBranch
+    - CreateTag
+    - ManageNote
+    - PolicyExempt
+    - CreateRepository
+    - DeleteRepository
+    - RenameRepository
+    - EditPolicies
+    - RemoveOthersLocks
+    - ManagePermissions
+    - PullRequestContribute
+    - PullRequestBypassPolicy
+- permissionSet: AreaRestricted
+  namespace: CSS #Areas  
+  allowActions: 
+    - WORK_ITEM_READ
+    - WORK_ITEM_WRITE    
+  denyActions:
+    - GENERIC_READ
+    - GENERIC_WRITE
+    - CREATE_CHILDREN
+    - DELETE
+    - MANAGE_TEST_PLANS
+    - MANAGE_TEST_SUITES
+- permissionSet: EnvironmentAdmin
+  namespace: Environment
+  allowActions:
+    - View
+    - Manage
+    - ManageHistory
+    - Administer
+    - Use
+    - Create
+- permissionSet: EnvironmentUser
+  namespace: Environment
+  allowActions:
+    - View
+    - Use
+    - Create
+  denyActions:
+    - Manage
+    - ManageHistory
+    - Administer
+
+
+  
+      
+     
+
+     

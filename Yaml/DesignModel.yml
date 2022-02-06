@@ -1,0 +1,229 @@
+modelVersion: 1.0
+organization: 
+   name: https://dev.azure.com/expert-thinking-wag
+   settings: 
+
+
+projects:
+  - project: 
+      name: TestCore
+      features:
+          repos: true
+          boards: true
+          testplans: false
+          pipelines: true
+          artifacts: true     
+      boards:
+        processTemplate: Basic #Agile, CMMI, Scrum or whichever has been configured.      
+        areas:        
+          - Logistics:
+            - Product1:
+              - Web
+              - Mobile
+              - Backend
+            - Product2:
+              - Web                              
+              - BI
+          - Area51:
+              - Aliens:
+                - Mars
+                - Pluto
+                - OtherGalaxy
+                - SubOceanic
+              - Stealth Aircraft
+              - Magic    
+        iterations:                              
+           - Product Development:             
+              - Phase 1:
+                - Sprint 1
+                - Sprint 2
+                - Sprint 3
+                - Sprint 4   
+                startDate: 07-01-2022                
+                childIterationLength: 14 
+           - Area 51 Development:            
+              - Phase 1: 
+                - Iteration 1                 
+                - Iteration 2  
+                startDate: 07-01-2022
+                childIterationLength: 14 
+
+                
+      
+      teams:
+      - team: Core      
+        properties:
+          #administrator: james.denning@expert-thinking.co.uk # or use domain\userid         
+          backlogIteration: <Root>   
+          rootPlanningIteration:        
+          areas: 
+            - <Root>         
+      - team: ProductTeam1      
+        properties:
+         # administrator: james.denning@expert-thinking.co.uk  # or use domain\userid - TODO: No documented or easy to understand API to make some a team admin
+          backlogIteration: Product Development\Phase 1
+          areas: 
+            - Logistics\Product1*
+            - Area51\Stealth Aircraft 
+      groups:
+        - name: RestrictedGroup1                  
+          team: ProductTeam1
+          defaultPermissions: Restricted  # None/Restricted/Project
+          repos:
+            - name: core
+              permissionSet: GitRestricted
+            - name: Product1ComponentA
+              permissionSet: GitContributor
+        - name: CoreTeam1                  
+          team: ProductTeam1
+          defaultPermissions: Project  # None/Restricted/Project
+          repos:
+            - name: core
+              permissionSet: GitContributor
+            - name: Product1ComponentA
+              permissionSet: GitContributor       
+      git:
+        repos:
+        - repo: core            
+          settings: 
+            defaultBranch: master
+            initOnCreation: true # /false - if true default branch is created using readme and populated          
+            branchPolicies:
+            - master:
+                minimumNumberOfReviewers: 
+                  allowDownVotes: false
+                  blocking: true
+                  creatorVoteCounts: false
+                  minimumApproverCount: 2
+                  resetOnSourcePush: true
+                checkForLinkedWorkItems: Required # None/Optional
+                checkForCommentResolution: Required # None/Optional
+                allowedMergeTypes:
+                   basicNoFastForward: true
+                   allowSquashMerge: true
+                   rebaseAndFastForward: true
+                   rebaseWithMergeCommit: true 
+              # automaticallyIncludedReviewers:
+              #      - SomeGroup
+            - develop:
+                minimumNumberOfReviewers: 
+                  allowDownVotes: false
+                  blocking: true
+                  creatorVoteCounts: false
+                  minimumApproverCount: 1
+                  resetOnSourcePush: false
+                checkForLinkedWorkItems: Required # None/Optional
+                checkForCommentResolution: Required # None/Optional
+                allowedMergeTypes:
+                   basicNoFastForward: true
+                   allowSquashMerge: true
+                   rebaseAndFastForward: true
+                   rebaseWithMergeCommit: false 
+        - repo: Product1ComponentA
+          settings:
+            defaultBranch: main
+            initOnCreation: true # /false - if true default branch is created using readme and populated          
+            branchPolicies:
+            - master:
+                minimumNumberOfReviewers: 
+                  allowDownVotes: false
+                  blocking: true
+                  creatorVoteCounts: false
+                  minimumApproverCount: 2
+                  resetOnSourcePush: true
+                checkForLinkedWorkItems: Optional # None/Optional
+                checkForCommentResolution: None # None/Optional
+        - repo: contributions2
+          settings: 
+            defaultBranch: master
+            initOnCreation: true # /false - if true default branch is created using readme and populated          
+            branchPolicies:
+            - master:
+                minimumNumberOfReviewers: 
+                  allowDownVotes: false
+                  blocking: true
+                  creatorVoteCounts: false
+                  minimumApproverCount: 3
+                  resetOnSourcePush: true
+                checkForLinkedWorkItems: Required # None/Optional
+                checkForCommentResolution: Required # None/Optional
+                allowedMergeTypes:
+                   basicNoFastForward: true
+                   allowSquashMerge: true
+                   rebaseAndFastForward: true
+                   rebaseWithMergeCommit: true 
+
+permissionSets:
+- permissionSet: GitContributor
+  applyAsDefault: Project
+  namespace: Git Repositories
+  allowActions: 
+    - GenericRead
+    - GenericContribute
+    - CreateBranch
+    - CreateTag
+    - ManageNote
+    - PullRequestContribute
+- permissionSet: GitReadOnly
+  namespace: Git Repositories
+  allowActions: 
+    - GenericRead
+  denyActions:
+    - Administer
+    - GenericRead
+    - GenericContribute
+    - ForcePush
+    - CreateBranch
+    - CreateTag
+    - ManageNote
+    - PolicyExempt
+    - CreateRepository
+    - DeleteRepository
+    - RenameRepository
+    - EditPolicies
+    - RemoveOthersLocks
+    - ManagePermissions
+    - PullRequestContribute
+    - PullRequestBypassPolicy
+- permissionSet: GitDeny
+  applyAsDefault: Restricted
+  namespace: Git Repositories
+  allowActions: 
+    - GenericRead
+  denyActions:
+    - Administer
+    - GenericRead
+    - GenericContribute
+    - ForcePush
+    - CreateBranch
+    - CreateTag
+    - ManageNote
+    - PolicyExempt
+    - CreateRepository
+    - DeleteRepository
+    - RenameRepository
+    - EditPolicies
+    - RemoveOthersLocks
+    - ManagePermissions
+    - PullRequestContribute
+    - PullRequestBypassPolicy
+- permissionSet: AreaRestricted
+  namespace: CSS #Areas  
+  allowActions: 
+    - WORK_ITEM_READ
+    - WORK_ITEM_WRITE    
+  denyActions:
+    - GENERIC_READ
+    - GENERIC_WRITE
+    - CREATE_CHILDREN
+    - DELETE
+    - MANAGE_TEST_PLANS
+    - MANAGE_TEST_SUITES
+  
+
+
+  
+      
+     
+
+     

@@ -1,0 +1,27 @@
+{
+    "commits": [
+        {
+            "comment": "Added README.md",
+            "changes": [
+                {
+                    "changeType": 1,
+                    "item": {
+                        "path": "/README.md"
+                    },
+                    "newContentTemplate": {
+                        "name": "README.md",
+                        "type": "readme"
+                    }
+                }
+            ]
+        }
+    ],
+    "refUpdates": [
+        {
+            "name": "refs/heads/main",
+            "oldObjectId": "0000000000000000000000000000000000000000"
+        }
+    ],
+    "repository": {   
+    }
+}

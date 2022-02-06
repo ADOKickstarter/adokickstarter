@@ -1,0 +1,408 @@
+{
+	"definitions": {},
+	"$schema": "http://json-schema.org/draft-07/schema#", 
+	"$id": "https://example.com/object1640778469.json", 
+	"title": "Root", 
+	"type": "object",
+	"required": [
+		"permissions",
+		"modelVersion",
+		"gitPolicies",
+		"organization",
+		"teamTypes",
+		"projects"
+	],
+	"properties": {
+		"permissions": {
+			"$id": "#root/permissions", 
+			"title": "Permissions", 
+			"type": "array",
+			"default": [],
+			"items":{
+				"$id": "#root/permissions/items", 
+				"title": "Items", 
+				"type": "object",
+				"required": [
+					"perms",
+					"groups"
+				],
+				"properties": {
+					"perms": {
+						"$id": "#root/permissions/items/perms", 
+						"title": "Perms", 
+						"type": "array",
+						"default": [],
+						"items":{
+							"$id": "#root/permissions/items/perms/items", 
+							"title": "Items", 
+							"type": "object",
+							"required": [
+								"resourceType",
+								"permission",
+								"level",
+								"resourceName"
+							],
+							"properties": {
+								"resourceType": {
+									"$id": "#root/permissions/items/perms/items/resourceType", 
+									"title": "Resourcetype", 
+									"type": "string",
+									"default": "",
+									"examples": [
+										"Repo"
+									],
+									"pattern": "^.*$"
+								},
+								"permission": {
+									"$id": "#root/permissions/items/perms/items/permission", 
+									"title": "Permission", 
+									"type": "string",
+									"default": "",
+									"examples": [
+										"Read"
+									],
+									"pattern": "^.*$"
+								},
+								"level": {
+									"$id": "#root/permissions/items/perms/items/level", 
+									"title": "Level", 
+									"type": "string",
+									"default": "",
+									"examples": [
+										"Allow"
+									],
+									"pattern": "^.*$"
+								},
+								"resourceName": {
+									"$id": "#root/permissions/items/perms/items/resourceName", 
+									"title": "Resourcename", 
+									"type": "string",
+									"default": "",
+									"examples": [
+										"Core"
+									],
+									"pattern": "^.*$"
+								}
+							}
+						}
+
+					},
+					"groups": {
+						"$id": "#root/permissions/items/groups", 
+						"title": "Groups", 
+						"type": "string",
+						"default": "",
+						"examples": [
+							"RestrictedTeamMembers"
+						],
+						"pattern": "^.*$"
+					}
+				}
+			}
+
+		},
+		"modelVersion": {
+			"$id": "#root/modelVersion", 
+			"title": "Modelversion", 
+			"type": "integer",
+			"examples": [
+				1
+			],
+			"default": 0
+		},
+		"gitPolicies": {
+			"$id": "#root/gitPolicies", 
+			"title": "Gitpolicies", 
+			"type": "array",
+			"default": [],
+			"items":{
+				"$id": "#root/gitPolicies/items", 
+				"title": "Items", 
+				"type": "object",
+				"required": [
+					"blah"
+				],
+				"properties": {
+					"blah": {
+						"$id": "#root/gitPolicies/items/blah", 
+						"title": "Blah", 
+						"type": "object",
+						"required": [
+							"approvers",
+							"build"
+						],
+						"properties": {
+							"approvers": {
+								"$id": "#root/gitPolicies/items/blah/approvers", 
+								"title": "Approvers", 
+								"type": "string",
+								"default": "",
+								"examples": [
+									"etc"
+								],
+								"pattern": "^.*$"
+							},
+							"build": {
+								"$id": "#root/gitPolicies/items/blah/build", 
+								"title": "Build", 
+								"type": "null",
+								"default": null
+							}
+						}
+					}
+
+				}
+			}
+
+		},
+		"organization": {
+			"$id": "#root/organization", 
+			"title": "Organization", 
+			"type": "object",
+			"required": [
+				"settings",
+				"name"
+			],
+			"properties": {
+				"settings": {
+					"$id": "#root/organization/settings", 
+					"title": "Settings", 
+					"type": "object",
+					"required": [
+						"blah",
+						"boo"
+					],
+					"properties": {
+						"blah": {
+							"$id": "#root/organization/settings/blah", 
+							"title": "Blah", 
+							"type": "string",
+							"default": "",
+							"examples": [
+								"gsdggs"
+							],
+							"pattern": "^.*$"
+						},
+						"boo": {
+							"$id": "#root/organization/settings/boo", 
+							"title": "Boo", 
+							"type": "string",
+							"default": "",
+							"examples": [
+								"ewgwgg"
+							],
+							"pattern": "^.*$"
+						}
+					}
+				}
+,
+				"name": {
+					"$id": "#root/organization/name", 
+					"title": "Name", 
+					"type": "string",
+					"default": "",
+					"examples": [
+						"https://dev.azure.com/expert-thinking-wag"
+					],
+					"pattern": "^.*$"
+				}
+			}
+		}
+,
+		"teamTypes": {
+			"$id": "#root/teamTypes", 
+			"title": "Teamtypes", 
+			"type": "array",
+			"default": [],
+			"items":{
+				"$id": "#root/teamTypes/items", 
+				"title": "Items", 
+				"type": "object",
+				"required": [
+					"properties",
+					"teamtype"
+				],
+				"properties": {
+					"properties": {
+						"$id": "#root/teamTypes/items/properties", 
+						"title": "Properties", 
+						"type": "object",
+						"required": [
+							"administrator",
+							"accessGroup"
+						],
+						"properties": {
+							"administrator": {
+								"$id": "#root/teamTypes/items/properties/administrator", 
+								"title": "Administrator", 
+								"type": "string",
+								"default": "",
+								"examples": [
+									"james.denning@expert-thinking.co.uk"
+								],
+								"pattern": "^.*$"
+							},
+							"accessGroup": {
+								"$id": "#root/teamTypes/items/properties/accessGroup", 
+								"title": "Accessgroup", 
+								"type": "string",
+								"default": "",
+								"examples": [
+									"RestrictedTeamMembers"
+								],
+								"pattern": "^.*$"
+							}
+						}
+					}
+,
+					"teamtype": {
+						"$id": "#root/teamTypes/items/teamtype", 
+						"title": "Teamtype", 
+						"type": "string",
+						"default": "",
+						"examples": [
+							"Restricted"
+						],
+						"pattern": "^.*$"
+					}
+				}
+			}
+
+		},
+		"projects": {
+			"$id": "#root/projects", 
+			"title": "Projects", 
+			"type": "array",
+			"default": [],
+			"items":{
+				"$id": "#root/projects/items", 
+				"title": "Items", 
+				"type": "object",
+				"required": [
+					"project"
+				],
+				"properties": {
+					"project": {
+						"$id": "#root/projects/items/project", 
+						"title": "Project", 
+						"type": "object",
+						"required": [
+							"git",
+							"boards",
+							"name",
+							"features"
+						],
+						"properties": {
+							"git": {
+								"$id": "#root/projects/items/project/git", 
+								"title": "Git", 
+								"type": "object",
+								"required": [
+									"repos"
+								],
+								"properties": {
+									"repos": {
+										"$id": "#root/projects/items/project/git/repos", 
+										"title": "Repos", 
+										"type": "array",
+										"default": []
+									}
+								}
+							}
+,
+							"boards": {
+								"$id": "#root/projects/items/project/boards", 
+								"title": "Boards", 
+								"type": "object",
+								"required": [
+									"teams"
+								],
+								"properties": {
+									"teams": {
+										"$id": "#root/projects/items/project/boards/teams", 
+										"title": "Teams", 
+										"type": "array",
+										"default": []
+									}
+								}
+							}
+,
+							"name": {
+								"$id": "#root/projects/items/project/name", 
+								"title": "Name", 
+								"type": "string",
+								"default": "",
+								"examples": [
+									"TestCore"
+								],
+								"pattern": "^.*$"
+							},
+							"features": {
+								"$id": "#root/projects/items/project/features", 
+								"title": "Features", 
+								"type": "object",
+								"required": [
+									"artifacts",
+									"repos",
+									"boards",
+									"pipelines",
+									"testplans"
+								],
+								"properties": {
+									"artifacts": {
+										"$id": "#root/projects/items/project/features/artifacts", 
+										"title": "Artifacts", 
+										"type": "boolean",
+										"examples": [
+											true
+										],
+										"default": true
+									},
+									"repos": {
+										"$id": "#root/projects/items/project/features/repos", 
+										"title": "Repos", 
+										"type": "boolean",
+										"examples": [
+											true
+										],
+										"default": true
+									},
+									"boards": {
+										"$id": "#root/projects/items/project/features/boards", 
+										"title": "Boards", 
+										"type": "boolean",
+										"examples": [
+											true
+										],
+										"default": true
+									},
+									"pipelines": {
+										"$id": "#root/projects/items/project/features/pipelines", 
+										"title": "Pipelines", 
+										"type": "boolean",
+										"examples": [
+											true
+										],
+										"default": true
+									},
+									"testplans": {
+										"$id": "#root/projects/items/project/features/testplans", 
+										"title": "Testplans", 
+										"type": "boolean",
+										"examples": [
+											false
+										],
+										"default": true
+									}
+								}
+							}
+
+						}
+					}
+
+				}
+			}
+
+		}
+	}
+}

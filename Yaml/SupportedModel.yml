@@ -1,0 +1,124 @@
+modelVersion: 1.0
+projects:
+  - project: 
+      name: TestCore
+      features:
+          repos: true
+          boards: true
+          testplans: false
+          pipelines: true
+          artifacts: true     
+      boards:
+        processTemplate: Basic #Agile, CMMI, Scrum or whichever has been configured.      
+        areas:        
+          - Logistics:
+            - Product1:
+              - Web
+              - Mobile
+              - Backend
+            - Product2:
+              - Web                              
+              - BI
+          - Area51:
+              - Aliens:
+                - Mars
+                - Pluto
+                - OtherGalaxy
+                - SubOceanic
+              - Stealth Aircraft
+              - Magic    
+        iterations:                              
+           - Product Development:             
+              - Phase 1:
+                - Sprint 1
+                - Sprint 2
+                - Sprint 3
+                - Sprint 4   
+                startDate: 07-01-2022                
+                childIterationLength: 14 
+           - Area 51 Development:            
+              - Phase 1: 
+                - Iteration 1                 
+                - Iteration 2  
+                startDate: 07-01-2022
+                childIterationLength: 14   
+      teams:
+      - team: Core      
+        properties:             
+          backlogIteration: <Root>                     
+          areas: 
+            - <Root>    
+      - team: ProductTeam1      
+        properties:      
+          backlogIteration: Product Development\Phase 1
+          areas: 
+            - Logistics\Product1*
+            - Area51\Stealth Aircraft  
+      git:
+        repos:
+        - repo: core            
+          settings: 
+            defaultBranch: master
+            initOnCreation: true # /false - if true default branch is created using readme and populated          
+            branchPolicies:
+            - master:
+                minimumNumberOfReviewers: 
+                  allowDownVotes: false
+                  blocking: true
+                  creatorVoteCounts: false
+                  minimumApproverCount: 2
+                  resetOnSourcePush: true
+                checkForLinkedWorkItems: Required # None/Optional
+                checkForCommentResolution: Required # None/Optional
+                allowedMergeTypes:
+                   basicNoFastForward: true
+                   allowSquashMerge: true
+                   rebaseAndFastForward: true
+                   rebaseWithMergeCommit: true 
+            - develop:
+                minimumNumberOfReviewers: 
+                  allowDownVotes: false
+                  blocking: true
+                  creatorVoteCounts: false
+                  minimumApproverCount: 1
+                  resetOnSourcePush: false
+                checkForLinkedWorkItems: Required # None/Optional
+                checkForCommentResolution: Required # None/Optional
+                allowedMergeTypes:
+                   basicNoFastForward: true
+                   allowSquashMerge: true
+                   rebaseAndFastForward: true
+                   rebaseWithMergeCommit: false 
+        - repo: Product1ComponentA
+          settings:
+            defaultBranch: main
+            initOnCreation: true # /false - if true default branch is created using readme and populated          
+            branchPolicies:
+            - master:
+                minimumNumberOfReviewers: 
+                  allowDownVotes: false
+                  blocking: true
+                  creatorVoteCounts: false
+                  minimumApproverCount: 2
+                  resetOnSourcePush: true
+                checkForLinkedWorkItems: Optional # None/Optional
+                checkForCommentResolution: None # None/Optional
+        - repo: contributions2
+          settings: 
+            defaultBranch: master
+            initOnCreation: true # /false - if true default branch is created using readme and populated          
+            branchPolicies:
+            - master:
+                minimumNumberOfReviewers: 
+                  allowDownVotes: false
+                  blocking: true
+                  creatorVoteCounts: false
+                  minimumApproverCount: 3
+                  resetOnSourcePush: true
+                checkForLinkedWorkItems: Required # None/Optional
+                checkForCommentResolution: Required # None/Optional
+                allowedMergeTypes:
+                   basicNoFastForward: true
+                   allowSquashMerge: true
+                   rebaseAndFastForward: true
+                   rebaseWithMergeCommit: true 
