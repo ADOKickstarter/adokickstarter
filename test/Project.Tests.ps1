@@ -1,3 +1,4 @@
+param($organizationUrl, $pattoken)
 BeforeAll {
     Import-Module $PSScriptRoot\..\src\ADOKickStarter.psm1 -Verbose -Force
     Initialize-Session -OrganizationUrl $organizationUrl -NoProject -Pattoken $pattoken   
@@ -16,6 +17,11 @@ BeforeAll {
 Describe "Project Creation and Configuration" {
    It "Should be created" {
        $project | Should -Not -Be $null
+   }
+
+   It "Should have all the repos"{
+     $repos = Invoke-AzCliCommand "repos list" -OutputType PSObject
+     $repos.Length | Should -Be $project.repos.Length
    }
    
 }

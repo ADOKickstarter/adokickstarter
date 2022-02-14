@@ -92,7 +92,7 @@ function Initialize-Session {
 
         if($Project)
         {
-            Invoke-AzCliCommand "devops configure --defaults project=$Project"
+            Invoke-AzCliCommand "devops configure --defaults project=""$Project"""
         }
         elseif($NoProject)
         {

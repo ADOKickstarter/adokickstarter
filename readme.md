@@ -94,7 +94,7 @@ Separate files can be used for different projects - it is not recommended that d
 3. It is highly extensible - once familiar with the tooling incorporating additional capabilities can be extremely fast especially if it's covered by the Azure DevOps extentiosn for the Azure CLI or by a supported/documented API endpoint
 4. The yaml file is converted in to a hashtable object tree - hashtables do have some foibles especially if you want to use variable/dynamic key names (e.g in the Areas hierarchy) but once understood very powerful and enables simple readable yaml structures.
 
-### Yaml Configuration Reference ###
+### Yaml Configuration Reference 
 Hopefully the yaml is self-explanatory to anyone familiar with the product and UI.
 
 1. **modelVersion** - there in case massive changes trigger a minor or major version change to the way the yaml is processed
@@ -139,7 +139,7 @@ Parameters:
 
 
 
-## API-based updates ##
+## API-based updates 
 
 There are three types of interaction with ADO in this library
 1. Via Azure DevOps extension based CLI calls e.g. *az devops project list*
@@ -153,7 +153,7 @@ There are three types of interaction with ADO in this library
 2. Is cross-platform not just for windows
 3. Supports functions/commandlets and modules
 
-## Hints & Tips ##
+## Hints & Tips 
 
 1. Once a module is installed you can interrogate its syntax using Get-Command, note also inellisense/auto-completion is supported in the powershell terminal (Ctrl+SpaceBar). To get the syntax of a cmdlet:
 *Get-Command <cmdlet> -Syntax* e.g. *Get-Command Invoke-AzCliCommand -Syntax*
@@ -165,7 +165,7 @@ There are three types of interaction with ADO in this library
 
 
 
-## Suggested enhancements / Next steps##
+## Suggested enhancements / Next steps
 
 (T-Shirt size estimates - XS,S,M,L,XL,XXL) - medium about half to 3/4 a days work
 1. Update JSON schema and enforce validation (see below) - M
@@ -177,7 +177,7 @@ There are three types of interaction with ADO in this library
 7. Change ProcessTemplate - S
 8. Support team areas not having all Sub-Areas assigned - M
 9. Test coverage - (using pester) - isolated - XL
-10. Test coverage - (using pester) against an actual organization in Azure DevOps Service - M
+10. Test coverage - (using pester) against an actual organization in Azure DevOps Service - M (started)
 
 
 

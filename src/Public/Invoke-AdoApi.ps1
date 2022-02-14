@@ -15,9 +15,18 @@ function Invoke-AdoApi {
       [string]
       $Method,    
       
-      [Parameter(Mandatory = $true)]
+      [Parameter(Mandatory = $false)]
       [Hashtable]
-      $RouteParameters,
+      $RouteParameters = @{},
+
+      [Parameter(Mandatory = $false)]
+      [Hashtable]
+      $QueryParameters = @{},
+
+      [Parameter(Mandatory = $false)]
+      [string]
+      $Query = $null,
+
 
       [Parameter(Mandatory = $false)]
       [String]
@@ -29,7 +38,7 @@ function Invoke-AdoApi {
 
       [Parameter()]
       [CliOutput]
-      $OutputType="None"
+      $OutputType="PSObject"
     )
     
     begin {
@@ -38,7 +47,10 @@ function Invoke-AdoApi {
     
     process {
          
-        $routeParams = Convert-HashToRouteParams $RouteParameters
+        $project = Get-Project
+        $RouteParameters.project = $project.id
+        $routeParams = Convert-HashToParams $RouteParameters
+        $queryParams = Convert-HashToParams $QueryParameters
         
         $infileParm = ""
         if(-not [String]::IsNullOrEmpty($Payload)){
@@ -47,13 +59,20 @@ function Invoke-AdoApi {
             $infileParm = "--in-file ""$infile"""
         }
 
+        if($Query)
+        {
+            $queryArg = "--query $Query"
+        }
+
         $ret = Invoke-AzCliCommand "devops invoke --area $Area `
         --resource $Resource `
         --http-method $Method `
         --detect false `
         $infileParm `
         --route-parameters $routeParams  `
+        --query-parameters $queryParams `
         --api-version ""$ApiVersion"" `
+        $queryArg `
         --verbose" `
         -OutputType $OutputType
 
@@ -67,7 +86,7 @@ function Invoke-AdoApi {
     }
 }
 
-function Convert-HashToRouteParams
+function Convert-HashToParams
 {
     param
     (
