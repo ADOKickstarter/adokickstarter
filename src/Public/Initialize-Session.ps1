@@ -92,7 +92,7 @@ function Initialize-Session {
 
         if($Project)
         {
-            Invoke-AzCliCommand "devops configure --defaults project=$Project"
+            Invoke-AzCliCommand "devops configure --defaults project=""$Project"""
         }
         elseif($NoProject)
         {
@@ -127,7 +127,7 @@ function Initialize-Session {
         }       
     }
 
-    ClearScriptBlockCache
+    Clear-ScriptBlockCache
     if($NoProject)
     {
         (Invoke-AzCliCommand "devops project list --detect false" -OutputType PsObject).value | Select-Object -Property name,description | Format-Table 
