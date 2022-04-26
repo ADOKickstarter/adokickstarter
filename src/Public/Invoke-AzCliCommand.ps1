@@ -87,7 +87,7 @@ end {
         Tsv { return $output }
         PsObject {
             try{
-                $Json = -Join $Output | ConvertFrom-Json -ErrorAction Stop
+                $Json = -Join $Output | ConvertFrom-Json -Depth 100 -ErrorAction Stop
                 Return $Json
             }
             catch{
